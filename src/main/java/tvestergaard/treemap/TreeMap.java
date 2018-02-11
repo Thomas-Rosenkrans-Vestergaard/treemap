@@ -296,51 +296,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		return node;
 	}
 
-	private Node<K, V> removeNode(K key, Node<K, V> node, Node<K, V> parent)
-	{
-		if (node == null)
-			return null;
-
-		if (key == null ? key == node.key : key.equals(node.key)) {
-
-			if (node.left == null && node.right == null) {
-				replaceNode(parent, node, null);
-				size--;
-				return node;
-			}
-
-			if (node.left == null || node.right == null) {
-
-				if (node.left != null) {
-					replaceNode(parent, node, node.left);
-					size--;
-					return node;
-				}
-
-				if (node.right != null) {
-					replaceNode(parent, node, node.right);
-					size--;
-					return node;
-				}
-			}
-
-			Node<K, V> min = minimum(node.right);
-			min.left = node.left;
-			replaceNode(parent, node, min);
-			size--;
-			return node;
-		}
-
-		int compare = comparator.compare(key, node.key);
-
-		if (compare < 0)
-			return removeNode(key, node.left, node);
-		if (compare > 0)
-			return removeNode(key, node.right, node);
-
-		return null;
-	}
-
 	private void replaceNode(Node<K, V> parent, Node<K, V> target, Node<K, V> replacement)
 	{
 		if (parent == null) {
