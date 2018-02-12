@@ -16,6 +16,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	private int                    size;
 	private TreeMapValueCollection cacheValueCollection;
 	private TreeMapKeySet          cacheKeySet;
+	private TreeMapEntrySet        cacheEntrySet;
 
 	/**
 	 * Creates a new {@link TreeMap} using the provided <code>comparator</code>.
@@ -107,7 +108,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * Sets the value in the key-value node.
 		 *
 		 * @param value The new value to set.
-		 *
 		 * @return The value just replaced.
 		 */
 		public V setValue(V value)
@@ -160,15 +160,18 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * key.equals(k))</tt>.  (There can be at most one such mapping.)
 	 *
 	 * @param key key whose presence in this map is to be tested
-	 *
 	 * @return <tt>true</tt> if this map contains a mapping for the specified key
 	 * @throws ClassCastException if the provided key is of an inappropriate type for this map
 	 */
 	@Override public boolean containsKey(Object key)
 	{
-		Node<K, V> node = getNode((K) key, root);
+		try {
+			Node<K, V> node = getNode((K) key, root);
 
-		return node != null;
+			return node != null;
+		} catch (ClassCastException e) {
+			return false;
+		}
 	}
 
 	/**
@@ -178,15 +181,18 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * size for most implementations of the <tt>Map</tt> interface.
 	 *
 	 * @param value value whose presence in this map is to be tested
-	 *
 	 * @return <tt>true</tt> if this map maps one or more keys to the specified value
 	 * @throws ClassCastException if the provided key is of an inappropriate type for this map
 	 */
 	@Override public boolean containsValue(Object value)
 	{
-		Node<K, V> node = searchNode(value, root);
+		try {
+			Node<K, V> node = searchNode(value, root);
 
-		return node != null;
+			return node != null;
+		} catch (ClassCastException e) {
+			return false;
+		}
 	}
 
 	/**
@@ -204,7 +210,6 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * The {@link #containsKey containsKey} operation may be used to distinguish these two cases.
 	 *
 	 * @param key the key whose associated value is to be returned
-	 *
 	 * @return the value to which the specified key is mapped, or {@code null} if this map contains no mapping for the
 	 * key
 	 * @throws ClassCastException if the provided key is of an inappropriate type for this map
@@ -224,7 +229,6 @@ public class TreeMap<K, V> implements Map<K, V>
 	 *
 	 * @param key   key with which the specified value is to be associated
 	 * @param value value to be associated with the specified key
-	 *
 	 * @return the previous value associated with <tt>key</tt>, or <tt>null</tt> if there was no mapping for
 	 * <tt>key</tt>. (A <tt>null</tt> return can also indicate that the map previously associated <tt>null</tt> with
 	 * <tt>key</tt>, if the implementation supports <tt>null</tt> values.)
@@ -250,7 +254,6 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * <p>The map will not contain a mapping for the specified key once the call returns.
 	 *
 	 * @param key key whose mapping is to be removed from the map
-	 *
 	 * @return the previous value associated with <tt>key</tt>, or <tt>null</tt> if there was no mapping for
 	 * <tt>key</tt>.
 	 * @throws ClassCastException if the provided key is of an inappropriate type for this map
@@ -399,7 +402,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * Returns <code>true</code> if this collection contains the specified element.
 		 *
 		 * @param o element whose presence in this collection is to be tested.
-		 *
 		 * @return <code>true</code> if this collection contains the specified element.
 		 */
 		@Override public boolean contains(Object o)
@@ -481,7 +483,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * Removes a single instance of the specified element from this collection, if it is present.
 		 *
 		 * @param o element to be removed from this collection, if present
-		 *
 		 * @return <tt>true</tt> if an element was removed as a result of this call
 		 */
 		@Override public boolean remove(Object o)
@@ -495,7 +496,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * Returns <tt>true</tt> if this collection contains all of the elements in the specified collection.
 		 *
 		 * @param c collection to be checked for containment in this collection
-		 *
 		 * @return <tt>true</tt> if this collection contains all of the elements in the specified collection.
 		 * @see #contains(Object)
 		 */
@@ -526,7 +526,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * call returns, this collection will contain no elements in common with the specified collection.
 		 *
 		 * @param c collection containing elements to be removed from this collection.
-		 *
 		 * @return <tt>true</tt> if this collection changed as a result of the call.
 		 * @see #remove(Object)
 		 * @see #contains(Object)
@@ -555,7 +554,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * removes from this collection all of its elements that are not contained in the specified collection.
 		 *
 		 * @param c collection containing elements to be retained in this collection
-		 *
 		 * @return <tt>true</tt> if this collection changed as a result of the call
 		 * @see #remove(Object)
 		 * @see #contains(Object)
@@ -737,7 +735,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * .equals(e))</tt>.
 		 *
 		 * @param o element whose presence in this set is to be tested
-		 *
 		 * @return <tt>true</tt> if this set contains the specified element
 		 * @throws ClassCastException   if the type of the specified element is incompatible with this set (<a
 		 *                              href="Collection.html#optional-restrictions">optional</a>)
@@ -827,7 +824,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 *
 		 * @param a the array into which the elements of this set are to be stored, if it is big enough; otherwise, a
 		 *          new array of the same runtime type is allocated for this purpose.
-		 *
 		 * @return an array containing all the elements in this set
 		 * @throws ArrayStoreException  if the runtime type of the specified array is not a supertype of the runtime
 		 *                              type of every element in this set
@@ -835,7 +831,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 */
 		@Override public <T> T[] toArray(T[] a)
 		{
-			int size = size();
 			T[] r = a.length >= size && a != null ? a : (T[]) java.lang.reflect.Array.newInstance(
 					a.getClass().getComponentType(),
 					size
@@ -863,7 +858,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * restrictions on the elements that they may contain.
 		 *
 		 * @param k element to be added to this set
-		 *
 		 * @return <tt>true</tt> if this set did not already contain the specified element
 		 * @throws UnsupportedOperationException if the <tt>add</tt> operation is not supported by this set
 		 * @throws ClassCastException            if the class of the specified element prevents it from being added to
@@ -886,7 +880,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * set changed as a result of the call).  (This set will not contain the element once the call returns.)
 		 *
 		 * @param o object to be removed from this set, if present
-		 *
 		 * @return <tt>true</tt> if this set contained the specified element
 		 * @throws ClassCastException            if the type of the specified element is incompatible with this set (<a
 		 *                                       href="Collection.html#optional-restrictions">optional</a>)
@@ -906,13 +899,12 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * collection is also a set, this method returns <tt>true</tt> if it is a <i>subset</i> of this set.
 		 *
 		 * @param c collection to be checked for containment in this set
-		 *
 		 * @return <tt>true</tt> if this set contains all of the elements of the specified collection
 		 * @throws ClassCastException   if the types of one or more elements in the specified collection are
 		 *                              incompatible with this set
 		 *                              (<a href="Collection.html#optional-restrictions">optional</a>)
 		 * @throws NullPointerException if the specified collection contains one or more null elements and this set
-		 * does
+		 *                              does
 		 *                              not permit null elements
 		 *                              (<a href="Collection.html#optional-restrictions">optional</a>),
 		 *                              or if the specified collection is null
@@ -923,9 +915,8 @@ public class TreeMap<K, V> implements Map<K, V>
 			if (c == null || c.isEmpty())
 				return true;
 
-			TreeMapNodeIterator iterator = new TreeMapNodeIterator();
-			while (iterator.hasNext())
-				if (!c.contains(iterator.next().key))
+			for (Object o : c)
+				if (!contains(o))
 					return false;
 
 			return true;
@@ -938,14 +929,13 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * if the specified collection is modified while the operation is in progress.
 		 *
 		 * @param c collection containing elements to be added to this set
-		 *
 		 * @return <tt>true</tt> if this set changed as a result of the call
 		 * @throws UnsupportedOperationException if the <tt>addAll</tt> operation is not supported by this set
 		 * @throws ClassCastException            if the class of an element of the specified collection prevents it
-		 * from
+		 *                                       from
 		 *                                       being added to this set
 		 * @throws NullPointerException          if the specified collection contains one or more null elements and
-		 * this
+		 *                                       this
 		 *                                       set does not permit null elements, or if the specified collection is
 		 *                                       null
 		 * @throws IllegalArgumentException      if some property of an element of the specified collection prevents it
@@ -964,7 +954,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * is the <i>intersection</i> of the two sets.
 		 *
 		 * @param c collection containing elements to be retained in this set
-		 *
 		 * @return <tt>true</tt> if this set changed as a result of the call
 		 * @throws UnsupportedOperationException if the <tt>retainAll</tt> operation is not supported by this set
 		 * @throws ClassCastException            if the class of an element of this set is incompatible with the
@@ -1007,7 +996,6 @@ public class TreeMap<K, V> implements Map<K, V>
 		 * its value is the <i>asymmetric set difference</i> of the two sets.
 		 *
 		 * @param c collection containing elements to be removed from this set
-		 *
 		 * @return <tt>true</tt> if this set changed as a result of the call
 		 * @throws UnsupportedOperationException if the <tt>removeAll</tt> operation is not supported by this set
 		 * @throws ClassCastException            if the class of an element of this set is incompatible with the
@@ -1066,7 +1054,443 @@ public class TreeMap<K, V> implements Map<K, V>
 	 */
 	@Override public Set<Entry<K, V>> entrySet()
 	{
-		return null;
+		if (cacheEntrySet == null)
+			cacheEntrySet = new TreeMapEntrySet();
+
+		return cacheEntrySet;
+	}
+
+	private final class TreeMapEntrySet implements Set<Map.Entry<K, V>>
+	{
+
+		/**
+		 * Returns the number of elements in this set (its cardinality).  If this
+		 * set contains more than <tt>Integer.MAX_VALUE</tt> elements, returns
+		 * <tt>Integer.MAX_VALUE</tt>.
+		 *
+		 * @return the number of elements in this set (its cardinality)
+		 */
+		@Override public int size()
+		{
+			return size;
+		}
+
+		/**
+		 * Returns <tt>true</tt> if this set contains no elements.
+		 *
+		 * @return <tt>true</tt> if this set contains no elements
+		 */
+		@Override public boolean isEmpty()
+		{
+			return size == 0;
+		}
+
+		/**
+		 * Returns <tt>true</tt> if this set contains the specified element.
+		 * More formally, returns <tt>true</tt> if and only if this set
+		 * contains an element <tt>e</tt> such that
+		 * <tt>(o==null&nbsp;?&nbsp;e==null&nbsp;:&nbsp;o.equals(e))</tt>.
+		 *
+		 * @param o element whose presence in this set is to be tested
+		 * @return <tt>true</tt> if this set contains the specified element
+		 * @throws ClassCastException   if the type of the specified element
+		 *                              is incompatible with this set
+		 *                              (<a href="Collection.html#optional-restrictions">optional</a>)
+		 * @throws NullPointerException if the specified element is null and this
+		 *                              set does not permit null elements
+		 *                              (<a href="Collection.html#optional-restrictions">optional</a>)
+		 */
+		@Override public boolean contains(Object o)
+		{
+			try {
+				Entry<K, V> entry = (Entry<K, V>) o;
+				return getNode(entry.getKey(), entry.getValue(), root) != null;
+			} catch (ClassCastException e) {
+				return false;
+			}
+		}
+
+		/**
+		 * Returns an iterator over the elements in this set.  The elements are
+		 * returned in no particular order (unless this set is an instance of some
+		 * class that provides a guarantee).
+		 *
+		 * @return an iterator over the elements in this set
+		 */
+		@Override public Iterator<Entry<K, V>> iterator()
+		{
+			return new TreeMapKeyIterator();
+		}
+
+		private final class TreeMapKeyIterator extends TreeMapIterator<Entry<K, V>>
+		{
+
+			/**
+			 * Returns the next element in the iteration.
+			 *
+			 * @return the next element in the iteration
+			 * @throws NoSuchElementException if the iteration has no more elements
+			 */
+			@Override public Entry<K, V> next()
+			{
+				return nextNode();
+			}
+		}
+
+		/**
+		 * Returns an array containing all of the elements in this set.
+		 * If this set makes any guarantees as to what order its elements
+		 * are returned by its iterator, this method must return the
+		 * elements in the same order.
+		 * <p>
+		 * <p>The returned array will be "safe" in that no references to it
+		 * are maintained by this set.  (In other words, this method must
+		 * allocate a new array even if this set is backed by an array).
+		 * The caller is thus free to modify the returned array.
+		 * <p>
+		 * <p>This method acts as bridge between array-based and collection-based
+		 * APIs.
+		 *
+		 * @return an array containing all the elements in this set
+		 */
+		@Override public Object[] toArray()
+		{
+			int                 counter  = 0;
+			Object[]            result   = new Object[size];
+			TreeMapNodeIterator iterator = new TreeMapNodeIterator();
+			while (iterator.hasNext())
+				result[counter++] = iterator.next();
+			return result;
+		}
+
+		/**
+		 * Returns an array containing all of the elements in this set; the
+		 * runtime type of the returned array is that of the specified array.
+		 * If the set fits in the specified array, it is returned therein.
+		 * Otherwise, a new array is allocated with the runtime type of the
+		 * specified array and the size of this set.
+		 * <p>
+		 * <p>If this set fits in the specified array with room to spare
+		 * (i.e., the array has more elements than this set), the element in
+		 * the array immediately following the end of the set is set to
+		 * <tt>null</tt>.  (This is useful in determining the length of this
+		 * set <i>only</i> if the caller knows that this set does not contain
+		 * any null elements.)
+		 * <p>
+		 * <p>If this set makes any guarantees as to what order its elements
+		 * are returned by its iterator, this method must return the elements
+		 * in the same order.
+		 * <p>
+		 * <p>Like the {@link #toArray()} method, this method acts as bridge between
+		 * array-based and collection-based APIs.  Further, this method allows
+		 * precise control over the runtime type of the output array, and may,
+		 * under certain circumstances, be used to save allocation costs.
+		 * <p>
+		 * <p>Suppose <tt>x</tt> is a set known to contain only strings.
+		 * The following code can be used to dump the set into a newly allocated
+		 * array of <tt>String</tt>:
+		 * <p>
+		 * <pre>
+		 *     String[] y = x.toArray(new String[0]);</pre>
+		 * <p>
+		 * Note that <tt>toArray(new Object[0])</tt> is identical in function to
+		 * <tt>toArray()</tt>.
+		 *
+		 * @param a the array into which the elements of this set are to be
+		 *          stored, if it is big enough; otherwise, a new array of the same
+		 *          runtime type is allocated for this purpose.
+		 * @return an array containing all the elements in this set
+		 * @throws ArrayStoreException  if the runtime type of the specified array
+		 *                              is not a supertype of the runtime type of every element in this
+		 *                              set
+		 * @throws NullPointerException if the specified array is null
+		 */
+		@Override public <T> T[] toArray(T[] a)
+		{
+			T[] r = a.length >= size && a != null ? a : (T[]) java.lang.reflect.Array.newInstance(
+					a.getClass().getComponentType(),
+					size
+			);
+
+			Iterator<Node<K, V>> iterator = new TreeMapNodeIterator();
+			int                  index    = 0;
+			while (iterator.hasNext())
+				r[index++] = (T) iterator.next();
+
+			return r;
+		}
+
+		/**
+		 * Adds the specified element to this set if it is not already present
+		 * (optional operation).  More formally, adds the specified element
+		 * <tt>e</tt> to this set if the set contains no element <tt>e2</tt>
+		 * such that
+		 * <tt>(e==null&nbsp;?&nbsp;e2==null&nbsp;:&nbsp;e.equals(e2))</tt>.
+		 * If this set already contains the element, the call leaves the set
+		 * unchanged and returns <tt>false</tt>.  In combination with the
+		 * restriction on constructors, this ensures that sets never contain
+		 * duplicate elements.
+		 * <p>
+		 * <p>The stipulation above does not imply that sets must accept all
+		 * elements; sets may refuse to add any particular element, including
+		 * <tt>null</tt>, and throw an exception, as described in the
+		 * specification for {@link Collection#add Collection.add}.
+		 * Individual set implementations should clearly document any
+		 * restrictions on the elements that they may contain.
+		 *
+		 * @param entry element to be added to this set
+		 * @return <tt>true</tt> if this set did not already contain the specified
+		 * element
+		 * @throws UnsupportedOperationException if the <tt>add</tt> operation
+		 *                                       is not supported by this set
+		 * @throws ClassCastException            if the class of the specified element
+		 *                                       prevents it from being added to this set
+		 * @throws NullPointerException          if the specified element is null and this
+		 *                                       set does not permit null elements
+		 * @throws IllegalArgumentException      if some property of the specified element
+		 *                                       prevents it from being added to this set
+		 */
+		@Override public boolean add(Entry<K, V> entry)
+		{
+			K          key     = entry.getKey();
+			V          value   = entry.getValue();
+			Node<K, V> current = root;
+
+			if (root == null) {
+				root = new Node<>(key, value);
+				size++;
+				return true;
+			}
+
+			while (current != null) {
+
+				if ((key == null ? key == current.key : key.equals(current.key)) &&
+					(value == null ? current.value == null : value.equals(current.value))) {
+					return false;
+				}
+
+				int compare = comparator.compare(key, current.key);
+
+				if (compare < 0) {
+					if (current.left == null) {
+						current.left = new Node<>(key, value, current);
+						size++;
+						return true;
+					}
+					current = current.left;
+				} else if (compare > 0) {
+					if (current.right == null) {
+						current.right = new Node<>(key, value, current);
+						size++;
+						return true;
+					}
+					current = current.right;
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Removes the specified element from this set if it is present
+		 * (optional operation).  More formally, removes an element <tt>e</tt>
+		 * such that
+		 * <tt>(o==null&nbsp;?&nbsp;e==null&nbsp;:&nbsp;o.equals(e))</tt>, if
+		 * this set contains such an element.  Returns <tt>true</tt> if this set
+		 * contained the element (or equivalently, if this set changed as a
+		 * result of the call).  (This set will not contain the element once the
+		 * call returns.)
+		 *
+		 * @param o object to be removed from this set, if present
+		 * @return <tt>true</tt> if this set contained the specified element
+		 * @throws ClassCastException            if the type of the specified element
+		 *                                       is incompatible with this set
+		 *                                       (<a href="Collection.html#optional-restrictions">optional</a>)
+		 * @throws NullPointerException          if the specified element is null and this
+		 *                                       set does not permit null elements
+		 *                                       (<a href="Collection.html#optional-restrictions">optional</a>)
+		 * @throws UnsupportedOperationException if the <tt>remove</tt> operation
+		 *                                       is not supported by this set
+		 */
+		@Override public boolean remove(Object o)
+		{
+			try {
+				Entry<K, V> entry = (Entry<K, V>) o;
+				Node<K, V>  node  = getNode(entry.getKey(), entry.getValue(), root);
+				if (node != null) {
+					removeNode(node);
+					return true;
+				}
+
+				return false;
+			} catch (ClassCastException e) {
+				return false;
+			}
+		}
+
+		/**
+		 * Returns <tt>true</tt> if this set contains all of the elements of the
+		 * specified collection.  If the specified collection is also a set, this
+		 * method returns <tt>true</tt> if it is a <i>subset</i> of this set.
+		 *
+		 * @param c collection to be checked for containment in this set
+		 * @return <tt>true</tt> if this set contains all of the elements of the
+		 * specified collection
+		 * @throws ClassCastException   if the types of one or more elements
+		 *                              in the specified collection are incompatible with this
+		 *                              set
+		 *                              (<a href="Collection.html#optional-restrictions">optional</a>)
+		 * @throws NullPointerException if the specified collection contains one
+		 *                              or more null elements and this set does not permit null
+		 *                              elements
+		 *                              (<a href="Collection.html#optional-restrictions">optional</a>),
+		 *                              or if the specified collection is null
+		 * @see #contains(Object)
+		 */
+		@Override public boolean containsAll(Collection<?> c)
+		{
+			if (c == null || c.isEmpty())
+				return true;
+
+			for (Object o : c)
+				if (!contains(o))
+					return false;
+
+			return true;
+		}
+
+		/**
+		 * Adds all of the elements in the specified collection to this set if
+		 * they're not already present (optional operation).  If the specified
+		 * collection is also a set, the <tt>addAll</tt> operation effectively
+		 * modifies this set so that its value is the <i>union</i> of the two
+		 * sets.  The behavior of this operation is undefined if the specified
+		 * collection is modified while the operation is in progress.
+		 *
+		 * @param c collection containing elements to be added to this set
+		 * @return <tt>true</tt> if this set changed as a result of the call
+		 * @throws UnsupportedOperationException if the <tt>addAll</tt> operation
+		 *                                       is not supported by this set
+		 * @throws ClassCastException            if the class of an element of the
+		 *                                       specified collection prevents it from being added to this set
+		 * @throws NullPointerException          if the specified collection contains one
+		 *                                       or more null elements and this set does not permit null
+		 *                                       elements, or if the specified collection is null
+		 * @throws IllegalArgumentException      if some property of an element of the
+		 *                                       specified collection prevents it from being added to this set
+		 * @see #add(Object)
+		 */
+		@Override public boolean addAll(Collection<? extends Entry<K, V>> c)
+		{
+			if (c == null || c.isEmpty())
+				return false;
+
+			boolean changed = false;
+			for (Entry<K, V> entry : c) {
+				if (!contains(entry)) {
+					putNode(entry.getKey(), entry.getValue());
+					changed = true;
+				}
+			}
+
+			return changed;
+		}
+
+		/**
+		 * Retains only the elements in this set that are contained in the
+		 * specified collection (optional operation).  In other words, removes
+		 * from this set all of its elements that are not contained in the
+		 * specified collection.  If the specified collection is also a set, this
+		 * operation effectively modifies this set so that its value is the
+		 * <i>intersection</i> of the two sets.
+		 *
+		 * @param c collection containing elements to be retained in this set
+		 * @return <tt>true</tt> if this set changed as a result of the call
+		 * @throws UnsupportedOperationException if the <tt>retainAll</tt> operation
+		 *                                       is not supported by this set
+		 * @throws ClassCastException            if the class of an element of this set
+		 *                                       is incompatible with the specified collection
+		 *                                       (<a href="Collection.html#optional-restrictions">optional</a>)
+		 * @throws NullPointerException          if this set contains a null element and the
+		 *                                       specified collection does not permit null elements
+		 *                                       (<a href="Collection.html#optional-restrictions">optional</a>),
+		 *                                       or if the specified collection is null
+		 * @see #remove(Object)
+		 */
+		@Override public boolean retainAll(Collection<?> c)
+		{
+			if (c == null || c.isEmpty()) {
+				if (size == 0)
+					return false;
+
+				TreeMap.this.clear();
+				return true;
+			}
+
+			boolean             changed  = false;
+			TreeMapNodeIterator iterator = new TreeMapNodeIterator();
+			while (iterator.hasNext()) {
+				Node<K, V> node = iterator.nextNode();
+				if (!c.contains(node)) {
+					removeNode(node);
+					changed = true;
+				}
+			}
+
+			return changed;
+		}
+
+		/**
+		 * Removes from this set all of its elements that are contained in the
+		 * specified collection (optional operation).  If the specified
+		 * collection is also a set, this operation effectively modifies this
+		 * set so that its value is the <i>asymmetric set difference</i> of
+		 * the two sets.
+		 *
+		 * @param c collection containing elements to be removed from this set
+		 * @return <tt>true</tt> if this set changed as a result of the call
+		 * @throws UnsupportedOperationException if the <tt>removeAll</tt> operation
+		 *                                       is not supported by this set
+		 * @throws ClassCastException            if the class of an element of this set
+		 *                                       is incompatible with the specified collection
+		 *                                       (<a href="Collection.html#optional-restrictions">optional</a>)
+		 * @throws NullPointerException          if this set contains a null element and the
+		 *                                       specified collection does not permit null elements
+		 *                                       (<a href="Collection.html#optional-restrictions">optional</a>),
+		 *                                       or if the specified collection is null
+		 * @see #remove(Object)
+		 * @see #contains(Object)
+		 */
+		@Override public boolean removeAll(Collection<?> c)
+		{
+			if (c == null || c.isEmpty()) {
+				return false;
+			}
+
+			boolean changed = false;
+			for (Object object : c) {
+				Entry<K, V> entry = (Entry<K, V>) object;
+				Node<K, V>  node  = getNode(entry.getKey(), entry.getValue(), root);
+				if (node != null) {
+					removeNode(node);
+					changed = true;
+				}
+			}
+
+			return changed;
+		}
+
+		/**
+		 * Removes all of the elements from this set (optional operation).
+		 * The set will be empty after this call returns.
+		 *
+		 * @throws UnsupportedOperationException if the <tt>clear</tt> method
+		 *                                       is not supported by this set
+		 */
+		@Override public void clear()
+		{
+			TreeMap.this.clear();
+		}
 	}
 
 	private V putNode(K key, V value)
@@ -1137,7 +1561,7 @@ public class TreeMap<K, V> implements Map<K, V>
 		if (node == null)
 			return null;
 
-		if ((key == null ? key == node.key : key.equals(node.key)) &&
+		if ((key == null ? node.key == null : key.equals(node.key)) &&
 			(value == null ? node.value == null : value.equals(node.value))) {
 			return node;
 		}
@@ -1145,9 +1569,9 @@ public class TreeMap<K, V> implements Map<K, V>
 		int compare = comparator.compare(key, node.key);
 
 		if (compare < 0)
-			return getNode(key, node.left);
+			return getNode(key, value, node.left);
 		if (compare > 0)
-			return getNode(key, node.right);
+			return getNode(key, value, node.right);
 
 		return null;
 	}

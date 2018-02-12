@@ -664,16 +664,18 @@ public class TreeMapTest
 			Collection<TreeMap.Node<Integer, Integer>> c;
 
 			c = new ArrayList<>();
-			assertFalse(set.containsAll(c));
+			assertTrue(set.containsAll(c));
 
 			c = new ArrayList<>();
 			c.add(pair(0, 0));
-			assertFalse(set.containsAll(c));
+			assertTrue(set.containsAll(c));
 
 			c = new ArrayList<>();
 			c.add(pair(0, 0));
 			c.add(pair(1, 1));
 			assertTrue(set.containsAll(c));
+			c.add(pair(2, 2));
+			assertFalse(set.containsAll(c));
 		}
 
 		@Test
@@ -940,10 +942,13 @@ public class TreeMapTest
 
 			c.add(0);
 			c.add(1);
-			assertFalse(set.containsAll(c));
+			assertTrue(set.containsAll(c));
 
 			c.add(2);
 			assertTrue(set.containsAll(c));
+
+			c.add(3);
+			assertFalse(set.containsAll(c));
 		}
 
 		@Test
