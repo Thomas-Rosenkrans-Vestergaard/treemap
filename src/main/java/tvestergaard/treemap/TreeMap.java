@@ -316,9 +316,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	@Override public boolean containsKey(Object key)
 	{
 		try {
-			Node<K, V> node = getNode((K) key, root);
-
-			return node != null;
+			return getNode((K) key, root) != null;
 		} catch (ClassCastException e) {
 			return false;
 		}
@@ -334,9 +332,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	@Override public boolean containsValue(Object value)
 	{
 		try {
-			Node<K, V> node = searchNode(value, root);
-
-			return node != null;
+			return searchNode(value, root) != null;
 		} catch (ClassCastException e) {
 			return false;
 		}
@@ -566,9 +562,7 @@ public class TreeMap<K, V> implements Map<K, V>
 		 */
 		@Override public boolean contains(Object o)
 		{
-			Node<K, V> node = searchNode(o, root);
-
-			return node != null;
+			return searchNode(o, root) != null;
 		}
 
 		/**
