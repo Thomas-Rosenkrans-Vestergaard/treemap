@@ -17,26 +17,6 @@ public class TreeMapTest
 	@Test
 	public void balance()
 	{
-		Random random = new Random();
-		TreeSet<Integer> set = new TreeSet<>();
-		for (int x = 0; x < 1_000_000; x++) {
-			Integer expected = random.nextInt(1000);
-			System.out.println(expected);
-			map.put(expected, expected);
-			set.add(expected);
-		}
-
-		int counter = 0;
-		for(Integer expected : set){
-			System.out.println(++counter);
-			assertEquals(expected, map.get(expected));
-		}
-
-		assertEquals(20, map.height());
-	}
-
-	@Test
-	public void balance2(){
 		List<Integer> set = new ArrayList<>();
 		set.add(985);
 		set.add(365);
@@ -64,7 +44,7 @@ public class TreeMapTest
 		set.add(898);
 		set.add(451);
 
-		for(Integer expected : set) {
+		for (Integer expected : set) {
 			System.out.println(expected);
 			map.put(expected, expected);
 		}
