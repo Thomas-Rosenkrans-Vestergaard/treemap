@@ -274,10 +274,10 @@ public class TreeMap<K, V> implements Map<K, V>
 	{
 
 		/**
-		 * Returns the next element in the iteration.
+		 * Returns the next node in the iteration.
 		 *
-		 * @return the next element in the iteration
-		 * @throws NoSuchElementException if the iteration has no more elements
+		 * @return the next node in the iteration
+		 * @throws NoSuchElementException if the iteration has no more nodes
 		 */
 		@Override public Node<K, V> next()
 		{
