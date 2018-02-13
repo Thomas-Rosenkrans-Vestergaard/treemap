@@ -17,11 +17,57 @@ public class TreeMapTest
 	@Test
 	public void balance()
 	{
-		for (int x = 0; x < 100_000; x++) {
-			map.put(x, x);
+		Random random = new Random();
+		TreeSet<Integer> set = new TreeSet<>();
+		for (int x = 0; x < 1_000_000; x++) {
+			Integer expected = random.nextInt(1000);
+			System.out.println(expected);
+			map.put(expected, expected);
+			set.add(expected);
 		}
 
-		assertEquals(17, map.height());
+		int counter = 0;
+		for(Integer expected : set){
+			System.out.println(++counter);
+			assertEquals(expected, map.get(expected));
+		}
+
+		assertEquals(20, map.height());
+	}
+
+	@Test
+	public void balance2(){
+		List<Integer> set = new ArrayList<>();
+		set.add(985);
+		set.add(365);
+		set.add(797);
+		set.add(715);
+		set.add(272);
+		set.add(735);
+		set.add(796);
+		set.add(451);
+		set.add(127);
+		set.add(551);
+		set.add(358);
+		set.add(887);
+		set.add(844);
+		set.add(452);
+		set.add(182);
+		set.add(384);
+		set.add(634);
+		set.add(267);
+		set.add(219);
+		set.add(731);
+		set.add(324);
+		set.add(322);
+		set.add(106);
+		set.add(898);
+		set.add(451);
+
+		for(Integer expected : set) {
+			System.out.println(expected);
+			map.put(expected, expected);
+		}
 	}
 
 	@Test

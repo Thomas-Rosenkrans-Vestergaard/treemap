@@ -423,7 +423,7 @@ public class TreeMap<K, V> implements Map<K, V>
 			return null;
 
 		if (node.left == null && node.right == null) {
-			swapNode(node, null);
+			replaceNode(node, null);
 			size--;
 			return node;
 		}
@@ -432,13 +432,13 @@ public class TreeMap<K, V> implements Map<K, V>
 		if (node.left == null || node.right == null) {
 
 			if (node.left != null) {
-				swapNode(node, node.left);
+				replaceNode(node, node.left);
 				size--;
 				return node;
 			}
 
 			if (node.right != null) {
-				swapNode(node, node.right);
+				replaceNode(node, node.right);
 				size--;
 				return node;
 			}
@@ -446,7 +446,7 @@ public class TreeMap<K, V> implements Map<K, V>
 
 		Node<K, V> min = minimum(node.right);
 		min.left = node.left;
-		swapNode(node, min);
+		replaceNode(node, min);
 		size--;
 		return node;
 	}
@@ -475,7 +475,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * @param target      The node to replace.
 	 * @param replacement The replacement for the node to remove.
 	 */
-	private void swapNode(Node<K, V> target, Node<K, V> replacement)
+	private void replaceNode(Node<K, V> target, Node<K, V> replacement)
 	{
 		Node<K, V> parent = target.parent;
 
@@ -1391,7 +1391,6 @@ public class TreeMap<K, V> implements Map<K, V>
 	 */
 	private V putNode(K key, V value, Node<K, V> node)
 	{
-
 		if (key == null ? key == node.key : key.equals(node.key)) {
 			V before = node.value;
 			node.value = value;
@@ -1405,22 +1404,17 @@ public class TreeMap<K, V> implements Map<K, V>
 			if (node.left == null) {
 				node.left = new Node<>(key, value, node);
 				size++;
-				node.height += 1;
-			} else {
+			} else
 				result = putNode(key, value, node.left);
-				node.updateHeight();
-			}
 		} else if (compare > 0) {
 			if (node.right == null) {
 				node.right = new Node<>(key, value, node);
 				size++;
-				node.height += 1;
-			} else {
+			} else
 				result = putNode(key, value, node.right);
-				node.updateHeight();
-			}
 		}
 
+		node.updateHeight();
 
 		int balanceFactor = balanceFactor(node.parent);
 
@@ -1453,7 +1447,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	private void rotateLeft(Node<K, V> b)
 	{
 		Node<K, V> a = b.parent;
-		swapNode(a, b);
+		replaceNode(a, b);
 		b.left = a;
 		a.right = null;
 		a.parent = b;
@@ -1470,12 +1464,12 @@ public class TreeMap<K, V> implements Map<K, V>
 	 */
 	private void rotateRight(Node<K, V> b)
 	{
-		Node<K, V> a = b.parent;
-		swapNode(a, b);
-		b.right = a;
-		a.left = null;
-		a.parent = b;
-		a.updateHeight();
+		Node<K, V> c = b.parent;
+		replaceNode(c, b);
+		b.right = c;
+		c.left = null;
+		c.parent = b;
+		c.updateHeight();
 		b.updateHeight();
 	}
 
@@ -1521,9 +1515,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		b.parent = a;
 		c.parent = b;
 
-		a.updateHeight();
-		b.updateHeight();
 		c.updateHeight();
+		b.updateHeight();
 
 		rotateLeft(b);
 	}
