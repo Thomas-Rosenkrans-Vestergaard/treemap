@@ -15,8 +15,9 @@ public class TreeMapTest
 {
 
 	@Test
-	public void strees(){
-		for(int x = 0; x < 100_000; x++){
+	public void balance()
+	{
+		for (int x = 0; x < 100_000; x++) {
 			map.put(x, x);
 		}
 
@@ -24,7 +25,8 @@ public class TreeMapTest
 	}
 
 	@Test
-	public void leftRotation(){
+	public void leftRotation()
+	{
 		map.put(0, 0);
 		map.put(1, 1);
 		assertEquals(2, map.height());
@@ -43,7 +45,8 @@ public class TreeMapTest
 	}
 
 	@Test
-	public void rightRotation(){
+	public void rightRotation()
+	{
 		map.put(0, 0);
 		map.put(-1, -1);
 		assertEquals(2, map.height());
@@ -62,7 +65,8 @@ public class TreeMapTest
 	}
 
 	@Test
-	public void leftRightRotation(){
+	public void leftRightRotation()
+	{
 		map.put(0, 0);
 		map.put(-10, -10);
 		assertEquals(2, map.height());
@@ -75,7 +79,8 @@ public class TreeMapTest
 	}
 
 	@Test
-	public void rightLeftRotation(){
+	public void rightLeftRotation()
+	{
 		map.put(0, 0);
 		map.put(10, 10);
 		assertEquals(2, map.height());
