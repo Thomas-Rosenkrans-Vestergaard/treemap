@@ -14,6 +14,58 @@ import static org.junit.Assert.*;
 public class TreeMapTest
 {
 
+	@Test
+	public void leftRotation(){
+		map.put(0, 0);
+		map.put(1, 1);
+		assertEquals(2, map.height());
+		map.put(2, 2);
+		assertEquals(2, map.height());
+
+		assertTrue(map.containsKey(0));
+		assertTrue(map.containsKey(1));
+		assertTrue(map.containsKey(2));
+	}
+
+	@Test
+	public void rightRotation(){
+		map.put(0, 0);
+		map.put(-1, -1);
+		assertEquals(2, map.height());
+		map.put(-2, -2);
+		assertEquals(2, map.height());
+
+		assertTrue(map.containsKey(0));
+		assertTrue(map.containsKey(-1));
+		assertTrue(map.containsKey(-2));
+	}
+
+	@Test
+	public void leftRightRotation(){
+		map.put(0, 0);
+		map.put(-10, -10);
+		assertEquals(2, map.height());
+		map.put(-5, -5);
+		assertEquals(2, map.height());
+
+		assertTrue(map.containsKey(0));
+		assertTrue(map.containsKey(-10));
+		assertTrue(map.containsKey(-5));
+	}
+
+	@Test
+	public void rightLeftRotation(){
+		map.put(0, 0);
+		map.put(10, 10);
+		assertEquals(2, map.height());
+		map.put(5, 5);
+		assertEquals(2, map.height());
+
+		assertTrue(map.containsKey(0));
+		assertTrue(map.containsKey(5));
+		assertTrue(map.containsKey(10));
+	}
+
 	private TreeMap<Integer, Integer> map;
 	private static IntegerComparator comparator = new IntegerComparator();
 

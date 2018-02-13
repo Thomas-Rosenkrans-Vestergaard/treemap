@@ -99,6 +99,11 @@ public class TreeMap<K, V> implements Map<K, V>
 		private Node<K, V> parent;
 
 		/**
+		 * The height of the tree rooted in this node.
+		 */
+		private int height = 1;
+
+		/**
 		 * Creates a new key-value {@link Node}.
 		 *
 		 * @param key   The key of the {@link Node}.
@@ -155,6 +160,14 @@ public class TreeMap<K, V> implements Map<K, V>
 			V before = this.value;
 			this.value = value;
 			return before;
+		}
+
+		/**
+		 * Updates the height of the node, based on the children of the nodes.
+		 */
+		public void updateHeight()
+		{
+			height = 1 + Math.max(left == null ? 0 : left.height, right == null ? 0 : right.height);
 		}
 
 		@Override public boolean equals(Object o)
@@ -409,7 +422,7 @@ public class TreeMap<K, V> implements Map<K, V>
 			return null;
 
 		if (node.left == null && node.right == null) {
-			replaceNode(node, null);
+			swapNode(node, null);
 			size--;
 			return node;
 		}
@@ -418,13 +431,13 @@ public class TreeMap<K, V> implements Map<K, V>
 		if (node.left == null || node.right == null) {
 
 			if (node.left != null) {
-				replaceNode(node, node.left);
+				swapNode(node, node.left);
 				size--;
 				return node;
 			}
 
 			if (node.right != null) {
-				replaceNode(node, node.right);
+				swapNode(node, node.right);
 				size--;
 				return node;
 			}
@@ -432,7 +445,7 @@ public class TreeMap<K, V> implements Map<K, V>
 
 		Node<K, V> min = minimum(node.right);
 		min.left = node.left;
-		replaceNode(node, min);
+		swapNode(node, min);
 		size--;
 		return node;
 	}
@@ -461,7 +474,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * @param target      The node to replace.
 	 * @param replacement The replacement for the node to remove.
 	 */
-	private void replaceNode(Node<K, V> target, Node<K, V> replacement)
+	private void swapNode(Node<K, V> target, Node<K, V> replacement)
 	{
 		Node<K, V> parent = target.parent;
 
@@ -1320,6 +1333,16 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
+	 * Returns the height of the internal tree structure.
+	 *
+	 * @return The height of the internal tree structure.
+	 */
+	public int height()
+	{
+		return height(root);
+	}
+
+	/**
 	 * Inserts a node with the provided key and value into the {@link TreeMap}.
 	 *
 	 * @param key   The key of the node to insert.
@@ -1345,11 +1368,13 @@ public class TreeMap<K, V> implements Map<K, V>
 	 * @param value The value of the node to insert.
 	 * @param node  The node currently being looked at by the recursive method.
 	 *
-	 * @return
+	 * @return The value, if any, that was overwritten during the insertion of the node.
 	 * @see #putNode(Object, Object)
+	 * @see <a href="https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm">AVL</a>
 	 */
 	private V putNode(K key, V value, Node<K, V> node)
 	{
+
 		if (key == null ? key == node.key : key.equals(node.key)) {
 			V before = node.value;
 			node.value = value;
@@ -1357,28 +1382,119 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		int compare = comparator.compare(key, node.key);
+		V   result  = null;
 
 		if (compare < 0) {
 			if (node.left == null) {
 				node.left = new Node<>(key, value, node);
 				size++;
-				return null;
+				node.height += 1;
+			} else {
+				result = putNode(key, value, node.left);
+				node.updateHeight();
 			}
-
-			return putNode(key, value, node.left);
-		}
-
-		if (compare > 0) {
+		} else if (compare > 0) {
 			if (node.right == null) {
 				node.right = new Node<>(key, value, node);
 				size++;
-				return null;
+				node.height += 1;
+			} else {
+				result = putNode(key, value, node.right);
+				node.updateHeight();
 			}
-
-			return putNode(key, value, node.right);
 		}
 
-		return null;
+
+		int balanceFactor = balanceFactor(node.parent);
+
+		// Balance when inserting rr by performing left rotation
+		if (balanceFactor < -1 && node.right != null)
+			rotateLeft(node);
+
+		// Balance when inserting ll by performing right rotation
+		if (balanceFactor > 1 && node.left != null)
+			rotateRight(node);
+
+		// Balance when inserting lr by performing left right rotation
+		/*if (balanceFactor > 1 && node.right != null)
+			rotateLeftRight(node);
+*/
+		// Balance when inserting rl by performing right left rotation
+		/*if (balanceFactor < -1 && node.left != null)
+			rotateRightLeft(node);
+*/
+		return result;
+	}
+
+	private void rotateLeft(Node<K, V> b)
+	{
+		Node<K, V> a = b.parent;
+		swapNode(a, b);
+		b.left = a;
+		a.right = null;
+		a.parent = b;
+		a.updateHeight();
+		b.updateHeight();
+	}
+
+	private void rotateRight(Node<K, V> b)
+	{
+		Node<K, V> a = b.parent;
+		swapNode(a, b);
+		b.right = a;
+		a.left = null;
+		a.parent = b;
+		a.updateHeight();
+		b.updateHeight();
+	}
+
+	private void rotateLeftRight(Node<K, V> a)
+	{
+		Node<K, V> c = a.parent;
+		Node<K, V> b = a.right;
+
+		c.left = b;
+		b.left = a;
+		a.right = null;
+		b.parent = null;
+
+		a.updateHeight();
+		b.updateHeight();
+
+		rotateRight(b);
+	}
+
+	private void rotateRightLeft(Node<K, V> c)
+	{
+		Node<K, V> a = c.parent;
+		Node<K, V> b = c.left;
+
+		a.right = b;
+		b.right = c;
+		c.left = null;
+		b.parent = a;
+
+		a.updateHeight();
+		b.updateHeight();
+		c.updateHeight();
+
+		rotateLeft(b);
+	}
+
+	private int height(Node<K, V> node)
+	{
+		if (node == null)
+			return 0;
+
+		return node.height;
+	}
+
+	private int balanceFactor(Node<K, V> node)
+	{
+		if (node == null)
+			return 0;
+
+		return height(node.left) - height(node.right);
 	}
 
 	/**
