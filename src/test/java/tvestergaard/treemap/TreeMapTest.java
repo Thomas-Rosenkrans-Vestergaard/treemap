@@ -15,16 +15,31 @@ public class TreeMapTest
 {
 
 	@Test
+	public void strees(){
+		for(int x = 0; x < 100_000; x++){
+			map.put(x, x);
+		}
+
+		assertEquals(17, map.height());
+	}
+
+	@Test
 	public void leftRotation(){
 		map.put(0, 0);
 		map.put(1, 1);
 		assertEquals(2, map.height());
 		map.put(2, 2);
 		assertEquals(2, map.height());
+		map.put(3, 3);
+		assertEquals(3, map.height());
+		map.put(4, 4);
+		assertEquals(3, map.height());
 
 		assertTrue(map.containsKey(0));
 		assertTrue(map.containsKey(1));
 		assertTrue(map.containsKey(2));
+		assertTrue(map.containsKey(3));
+		assertTrue(map.containsKey(4));
 	}
 
 	@Test
@@ -34,10 +49,16 @@ public class TreeMapTest
 		assertEquals(2, map.height());
 		map.put(-2, -2);
 		assertEquals(2, map.height());
+		map.put(-3, -3);
+		assertEquals(3, map.height());
+		map.put(-4, -4);
+		assertEquals(3, map.height());
 
 		assertTrue(map.containsKey(0));
 		assertTrue(map.containsKey(-1));
 		assertTrue(map.containsKey(-2));
+		assertTrue(map.containsKey(-3));
+		assertTrue(map.containsKey(-4));
 	}
 
 	@Test

@@ -51,7 +51,8 @@ public class TreeMap<K, V> implements Map<K, V>
 
 	/**
 	 * Creates a new {@link TreeMap} using the provided <code>comparator</code>. The map is then filled with the
-	 * entries from the provided <code>map</code>.
+	 * entries
+	 * from the provided <code>map</code>.
 	 *
 	 * @param comparator The comparator used when comparing the keys in the {@link TreeMap}. If <code>null</code> keys
 	 *                   are not allowed in the {@link TreeMap}, the comparator should throw a {@link
@@ -186,8 +187,8 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
-	 * Abstract iterator, allows for iteration through the nodes in the {@link TreeMap} using the
-	 * {@link TreeMapIterator#nextNode()} method.
+	 * Abstract iterator, allows for iteration through the nodes in the {@link TreeMap} using the {@link
+	 * TreeMapIterator#nextNode()} method.
 	 *
 	 * @param <T> The type argument for the iterator to create.
 	 */
@@ -280,8 +281,8 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
-	 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the nodes
-	 * in the {@link TreeMap}.
+	 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the nodes in the
+	 * {@link TreeMap}.
 	 */
 	private final class TreeMapNodeIterator extends TreeMapIterator<Node<K, V>>
 	{
@@ -494,10 +495,10 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
-	 * Copies all of the mappings from the specified map to this map.  The effect of this call is
-	 * equivalent to that of calling {@link #put(Object, Object) put(k, v)} on this map once for each mapping from key
-	 * <tt>k</tt> to value <tt>v</tt> in the specified map.  The behavior of this operation is undefined if the
-	 * specified map is modified while the operation is in progress.
+	 * Copies all of the mappings from the specified map to this map.  The effect of this call is equivalent to that of
+	 * calling {@link #put(Object, Object) put(k, v)} on this map once for each mapping from key <tt>k</tt> to value
+	 * <tt>v</tt> in the specified map.  The behavior of this operation is undefined if the specified map is modified
+	 * while the operation is in progress.
 	 *
 	 * @param m mappings to be stored in this map.
 	 */
@@ -539,9 +540,10 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
-	 * Collection backed by the {@link TreeMap}. Changed made to the {@link TreeMap} are reflected in the
-	 * {@link TreeMapValueCollection} and vice versa. The same instance of {@link TreeMapValueCollection} should be
-	 * returned on multiple calls to the {@link TreeMap#values()} method.
+	 * Collection backed by the {@link TreeMap}. Changed made to the {@link TreeMap} are reflected in the {@link
+	 * TreeMapValueCollection} and vice versa. The same instance of {@link TreeMapValueCollection} should be
+	 * returned on
+	 * multiple calls to the {@link TreeMap#values()} method.
 	 */
 	private class TreeMapValueCollection implements Collection<V>
 	{
@@ -579,8 +581,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns an iterator over the values in the {@link TreeMap}. The values are returned according to
-		 * ascending order of their keys.
+		 * Returns an iterator over the values in the {@link TreeMap}. The values are returned according to ascending
+		 * order of their keys.
 		 *
 		 * @return an <tt>Iterator</tt> over the values in the {@link TreeMap}.
 		 */
@@ -590,8 +592,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the values
-		 * in the {@link TreeMap}.
+		 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the values in
+		 * the {@link TreeMap}.
 		 */
 		private class HashMapValueIterator extends TreeMapIterator<V>
 		{
@@ -626,17 +628,18 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns an array containing all of the values in the {@link TreeMap}; the runtime type of the returned
-		 * array is that of the specified array. If the values fits in the specified array, it is returned therein.
-		 * Otherwise, a new array is allocated with the runtime type of the specified array and the size of the
-		 * {@link TreeMap}.
+		 * Returns an array containing all of the values in the {@link TreeMap}; the runtime type of the returned array
+		 * is that of the specified array. If the values fits in the specified array, it is returned therein.
+		 * Otherwise,
+		 * a new array is allocated with the runtime type of the specified array and the size of the {@link TreeMap}.
 		 *
 		 * @param a the array into which the values of the {@link TreeMap} are to be stored, if it is big enough;
 		 *          otherwise, a new array of the same runtime type is allocated for this purpose.
 		 *
 		 * @return an array containing all of the values in the {@link TreeMap}
 		 * @throws ArrayStoreException if the runtime type of the specified array is not a supertype of the runtime
-		 *                             type of every value in the {@link TreeMap}
+		 * type
+		 *                             of every value in the {@link TreeMap}
 		 */
 		@Override public <T> T[] toArray(T[] a)
 		{
@@ -772,7 +775,8 @@ public class TreeMap<K, V> implements Map<K, V>
 
 	/**
 	 * Returns a {@link Set} view of the keys contained in this map. The set is backed by the map, so changes to the
-	 * map are reflected in the set, and vice-versa.
+	 * map
+	 * are reflected in the set, and vice-versa.
 	 *
 	 * @return a set view of the keys contained in this map
 	 */
@@ -786,8 +790,9 @@ public class TreeMap<K, V> implements Map<K, V>
 
 	/**
 	 * Set backed by the {@link TreeMap}. Changed made to the {@link TreeMap} are reflected in the
-	 * {@link TreeMapKeySet} and vice versa. The same instance of {@link TreeMapKeySet} should be
-	 * returned on multiple calls to the {@link TreeMap#keySet()} method.
+	 * {@link TreeMapKeySet}
+	 * and vice versa. The same instance of {@link TreeMapKeySet} should be returned on multiple calls to the {@link
+	 * TreeMap#keySet()} method.
 	 */
 	private final class TreeMapKeySet implements Set<K>
 	{
@@ -836,8 +841,9 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the keys
-		 * in the {@link TreeMap}.
+		 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the keys in
+		 * the
+		 * {@link TreeMap}.
 		 */
 		private class TreeMapKeyIterator extends TreeMapIterator<K>
 		{
@@ -855,8 +861,9 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns an array containing all of the keys in the {@link TreeMap}. If the {@link TreeMap} makes any guarantees as to what
-		 * order its keys are returned by its iterator, this method must return the keys in the same order.
+		 * Returns an array containing all of the keys in the {@link TreeMap}. If the {@link TreeMap} makes any
+		 * guarantees as to what order its keys are returned by its iterator, this method must return the keys in the
+		 * same order.
 		 *
 		 * @return an array containing all the keys in the {@link TreeMap}
 		 */
@@ -873,16 +880,19 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns an array containing all of the keys in the {@link TreeMap}; the runtime type of the returned array is that
-		 * of the specified array. If the set fits in the specified array, it is returned therein. Otherwise, a new
+		 * Returns an array containing all of the keys in the {@link TreeMap}; the runtime type of the returned
+		 * array is
+		 * that of the specified array. If the set fits in the specified array, it is returned therein. Otherwise, a
+		 * new
 		 * array is allocated with the runtime type of the specified array and the size of the {@link TreeMap}.
 		 *
-		 * @param a the array into which the keys of the {@link TreeMap} are to be stored, if it is big enough; otherwise, a
-		 *          new array of the same runtime type is allocated for this purpose.
+		 * @param a the array into which the keys of the {@link TreeMap} are to be stored, if it is big enough;
+		 *          otherwise, a new array of the same runtime type is allocated for this purpose.
 		 *
 		 * @return an array containing all the keys in the {@link TreeMap}
 		 * @throws ArrayStoreException if the runtime type of the specified array is not a supertype of the runtime
-		 *                             type of every key in the {@link TreeMap}
+		 * type
+		 *                             of every key in the {@link TreeMap}
 		 */
 		@Override public <T> T[] toArray(T[] a)
 		{
@@ -903,8 +913,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		/**
 		 * Removes the specified key from the {@link TreeMap} if it is present More formally, removes an key <tt>e</tt>
 		 * such that <tt>(o==null ? e==null : o.equals(e))</tt>, if the {@link TreeMap} contains such an key.  Returns
-		 * <tt>true</tt> if the {@link TreeMap} contained the key (or equivalently, if the {@link TreeMap} changed as a result of the
-		 * call).  (the {@link TreeMap} will not contain the key once the call returns.)
+		 * <tt>true</tt> if the {@link TreeMap} contained the key (or equivalently, if the {@link TreeMap} changed as a
+		 * result of the call).  (the {@link TreeMap} will not contain the key once the call returns.)
 		 *
 		 * @param o key to be removed from the {@link TreeMap}, if present
 		 *
@@ -918,7 +928,8 @@ public class TreeMap<K, V> implements Map<K, V>
 
 		/**
 		 * Returns <tt>true</tt> if the {@link TreeMap} contains all of the keys of the specified collection.  If the
-		 * specified collection is also a set, this method returns <tt>true</tt> if it is a <i>subset</i> of the {@link TreeMap}.
+		 * specified collection is also a set, this method returns <tt>true</tt> if it is a <i>subset</i> of the {@link
+		 * TreeMap}.
 		 *
 		 * @param c collection to be checked for containment in the {@link TreeMap}
 		 *
@@ -940,8 +951,9 @@ public class TreeMap<K, V> implements Map<K, V>
 
 		/**
 		 * Retains only the keys in the {@link TreeMap} that are contained in the specified collection. In other words,
-		 * removes from the {@link TreeMap} all of its keys that are not contained in the specified collection .
-		 * If the specified collection is also a set, this operation effectively modifies the {@link TreeMap} so that its value
+		 * removes from the {@link TreeMap} all of its keys that are not contained in the specified collection . If the
+		 * specified collection is also a set, this operation effectively modifies the {@link TreeMap} so that its
+		 * value
 		 * is the <i>intersection</i> of the two sets.
 		 *
 		 * @param c collection containing keys to be retained in the {@link TreeMap}
@@ -976,8 +988,8 @@ public class TreeMap<K, V> implements Map<K, V>
 
 		/**
 		 * Removes from the {@link TreeMap} all of its keys that are contained in the specified collection (optional
-		 * operation).  If the specified collection is also a set, this operation effectively modifies the {@link TreeMap} so that
-		 * its value is the <i>asymmetric set difference</i> of the two sets.
+		 * operation).  If the specified collection is also a set, this operation effectively modifies the {@link
+		 * TreeMap} so that its value is the <i>asymmetric set difference</i> of the two sets.
 		 *
 		 * @param c collection containing keys to be removed from the {@link TreeMap}
 		 *
@@ -1036,7 +1048,8 @@ public class TreeMap<K, V> implements Map<K, V>
 
 	/**
 	 * Returns a {@link Set} view of the mappings contained in this map. The set is backed by the map, so changes to
-	 * the map are reflected in the set, and vice-versa.
+	 * the
+	 * map are reflected in the set, and vice-versa.
 	 *
 	 * @return a set view of the mappings contained in this map
 	 */
@@ -1049,9 +1062,9 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
-	 * Set backed by the {@link TreeMap}. Changed made to the {@link TreeMap} are reflected in the
-	 * {@link TreeMapEntrySet} and vice versa. The same instance of {@link TreeMapEntrySet} should be
-	 * returned on multiple calls to the {@link TreeMap#entrySet()} method.
+	 * Set backed by the {@link TreeMap}. Changed made to the {@link TreeMap} are reflected in the {@link
+	 * TreeMapEntrySet} and vice versa. The same instance of {@link TreeMapEntrySet} should be returned on multiple
+	 * calls to the {@link TreeMap#entrySet()} method.
 	 */
 	private final class TreeMapEntrySet implements Set<Map.Entry<K, V>>
 	{
@@ -1104,8 +1117,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the entries
-		 * in the {@link TreeMap}.
+		 * Iterator implementation extending from {@link TreeMapIterator} allowing for easy iteration of the entries in
+		 * the {@link TreeMap}.
 		 */
 		private final class TreeMapEntryIterator extends TreeMapIterator<Entry<K, V>>
 		{
@@ -1123,8 +1136,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns an array containing all of the entries in the {@link TreeMap}. The resulting array can be modified without
-		 * affecting the set.
+		 * Returns an array containing all of the entries in the {@link TreeMap}. The resulting array can be modified
+		 * without affecting the set.
 		 *
 		 * @return the array containing all the entries in the {@link TreeMap}
 		 */
@@ -1139,16 +1152,18 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns an array containing all of the entries in the {@link TreeMap}; the runtime type of the returned array is that
-		 * of the specified array. If the set fits in the specified array, it is returned therein. Otherwise, a new
-		 * array is allocated with the runtime type of the specified array and the size of the {@link TreeMap}.
+		 * Returns an array containing all of the entries in the {@link TreeMap}; the runtime type of the returned
+		 * array
+		 * is that of the specified array. If the set fits in the specified array, it is returned therein. Otherwise, a
+		 * new array is allocated with the runtime type of the specified array and the size of the {@link TreeMap}.
 		 *
-		 * @param a the array into which the entries of the {@link TreeMap} are to be stored, if it is big enough; otherwise, a
-		 *          new array of the same runtime type is allocated for this purpose.
+		 * @param a the array into which the entries of the {@link TreeMap} are to be stored, if it is big enough;
+		 *          otherwise, a new array of the same runtime type is allocated for this purpose.
 		 *
 		 * @return an array containing all the entries in the {@link TreeMap}
 		 * @throws ArrayStoreException if the runtime type of the specified array is not a supertype of the runtime
-		 *                             type of every entry in the {@link TreeMap}
+		 * type
+		 *                             of every entry in the {@link TreeMap}
 		 */
 		@Override public <T> T[] toArray(T[] a)
 		{
@@ -1184,10 +1199,10 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Removes the specified element from the {@link TreeMap} if it is present. More formally, removes an element <tt>e</tt>
-		 * such that <tt>(o==null ? e==null : o.equals(e))</tt>, if the {@link TreeMap} contains such an element.  Returns
-		 * <tt>true</tt> if the {@link TreeMap} contained the element (or equivalently, if the {@link TreeMap} changed as a result of the
-		 * call).
+		 * Removes the specified element from the {@link TreeMap} if it is present. More formally, removes an element
+		 * <tt>e</tt> such that <tt>(o==null ? e==null : o.equals(e))</tt>, if the {@link TreeMap} contains such an
+		 * element.  Returns <tt>true</tt> if the {@link TreeMap} contained the element (or equivalently, if the {@link
+		 * TreeMap} changed as a result of the call).
 		 *
 		 * @param o object to be removed from the {@link TreeMap}, if present
 		 *
@@ -1210,8 +1225,10 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Returns <tt>true</tt> if the {@link TreeMap} contains all of the entries of the specified collection.  If the
-		 * specified collection is also a set, this method returns <tt>true</tt> if it is a <i>subset</i> of the {@link TreeMap}.
+		 * Returns <tt>true</tt> if the {@link TreeMap} contains all of the entries of the specified collection.  If
+		 * the
+		 * specified collection is also a set, this method returns <tt>true</tt> if it is a <i>subset</i> of the {@link
+		 * TreeMap}.
 		 *
 		 * @param c collection to be checked for containment in the {@link TreeMap}
 		 *
@@ -1231,10 +1248,10 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Adds all of the entries in the specified collection to the {@link TreeMap} if they're not already present.  If the
-		 * specified collection is also a set, the <tt>addAll</tt> operation effectively modifies the {@link TreeMap} so that its
-		 * value is the <i>union</i> of the two sets.  The behavior of this operation is undefined if the specified
-		 * collection is modified while the operation is in progress.
+		 * Adds all of the entries in the specified collection to the {@link TreeMap} if they're not already present .
+		 * If the specified collection is also a set, the <tt>addAll</tt> operation effectively modifies the {@link
+		 * TreeMap} so that its value is the <i>union</i> of the two sets.  The behavior of this operation is undefined
+		 * if the specified collection is modified while the operation is in progress.
 		 *
 		 * @param c collection containing entries to be added to the {@link TreeMap}
 		 *
@@ -1258,11 +1275,11 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Retains only the entries in the {@link TreeMap} that are contained in the specified collection. In other words,
-		 * removes
-		 * from the {@link TreeMap} all of its entries that are not contained in the specified collection . If the specified
-		 * collection is also a set, this operation effectively modifies the {@link TreeMap} so that its value is the
-		 * <i>intersection</i> of the two sets.
+		 * Retains only the entries in the {@link TreeMap} that are contained in the specified collection. In other
+		 * words, removes from the {@link TreeMap} all of its entries that are not contained in the specified
+		 * collection
+		 * . If the specified collection is also a set, this operation effectively modifies the {@link TreeMap} so that
+		 * its value is the <i>intersection</i> of the two sets.
 		 *
 		 * @param c collection containing entries to be retained in the {@link TreeMap}
 		 *
@@ -1293,10 +1310,10 @@ public class TreeMap<K, V> implements Map<K, V>
 		}
 
 		/**
-		 * Removes from the {@link TreeMap} all of its entries that are contained in the specified collection.  If the specified
-		 * collection is also a set, this operation effectively modifies the {@link TreeMap} so that its value is the
-		 * <i>asymmetric
-		 * set difference</i> of the two sets.
+		 * Removes from the {@link TreeMap} all of its entries that are contained in the specified collection.  If the
+		 * specified collection is also a set, this operation effectively modifies the {@link TreeMap} so that its
+		 * value
+		 * is the <i>asymmetric set difference</i> of the two sets.
 		 *
 		 * @param c collection containing entries to be removed from the {@link TreeMap}
 		 *
@@ -1362,7 +1379,7 @@ public class TreeMap<K, V> implements Map<K, V>
 	}
 
 	/**
-	 * Recursive insert method.
+	 * Recursive insert method. Ensures that the tree remains balanced.
 	 *
 	 * @param key   The key of the node to insert.
 	 * @param value The value of the node to insert.
@@ -1408,24 +1425,31 @@ public class TreeMap<K, V> implements Map<K, V>
 		int balanceFactor = balanceFactor(node.parent);
 
 		// Balance when inserting rr by performing left rotation
-		if (balanceFactor < -1 && node.right != null)
+		if (balanceFactor < -1 && compare > 0)
 			rotateLeft(node);
 
 		// Balance when inserting ll by performing right rotation
-		if (balanceFactor > 1 && node.left != null)
+		if (balanceFactor > 1 && compare < 0)
 			rotateRight(node);
 
 		// Balance when inserting lr by performing left right rotation
-		/*if (balanceFactor > 1 && node.right != null)
+		if (balanceFactor > 1 && compare > 0)
 			rotateLeftRight(node);
-*/
+
 		// Balance when inserting rl by performing right left rotation
-		/*if (balanceFactor < -1 && node.left != null)
+		if (balanceFactor < -1 && compare < 0)
 			rotateRightLeft(node);
-*/
+
 		return result;
 	}
 
+	/**
+	 * Performs a left rotation on the parent of the provided node.
+	 *
+	 * @param b The child of the root of the unbalanced subtree.
+	 *
+	 * @see <a href="https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm">AVL</a>
+	 */
 	private void rotateLeft(Node<K, V> b)
 	{
 		Node<K, V> a = b.parent;
@@ -1437,6 +1461,13 @@ public class TreeMap<K, V> implements Map<K, V>
 		b.updateHeight();
 	}
 
+	/**
+	 * Performs a right rotation on the parent of the provided node.
+	 *
+	 * @param b The child of the root of the unbalanced subtree.
+	 *
+	 * @see <a href="https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm">AVL</a>
+	 */
 	private void rotateRight(Node<K, V> b)
 	{
 		Node<K, V> a = b.parent;
@@ -1448,6 +1479,13 @@ public class TreeMap<K, V> implements Map<K, V>
 		b.updateHeight();
 	}
 
+	/**
+	 * Performs a left right rotation on the parent of the provided node.
+	 *
+	 * @param a The child of the root of the unbalanced subtree.
+	 *
+	 * @see <a href="https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm">AVL</a>
+	 */
 	private void rotateLeftRight(Node<K, V> a)
 	{
 		Node<K, V> c = a.parent;
@@ -1456,7 +1494,8 @@ public class TreeMap<K, V> implements Map<K, V>
 		c.left = b;
 		b.left = a;
 		a.right = null;
-		b.parent = null;
+		b.parent = c;
+		a.parent = b;
 
 		a.updateHeight();
 		b.updateHeight();
@@ -1464,6 +1503,13 @@ public class TreeMap<K, V> implements Map<K, V>
 		rotateRight(b);
 	}
 
+	/**
+	 * Performs a right left rotation on the parent of the provided node.
+	 *
+	 * @param c The child of the root of the unbalanced subtree.
+	 *
+	 * @see <a href="https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm">AVL</a>
+	 */
 	private void rotateRightLeft(Node<K, V> c)
 	{
 		Node<K, V> a = c.parent;
@@ -1473,6 +1519,7 @@ public class TreeMap<K, V> implements Map<K, V>
 		b.right = c;
 		c.left = null;
 		b.parent = a;
+		c.parent = b;
 
 		a.updateHeight();
 		b.updateHeight();
@@ -1481,14 +1528,31 @@ public class TreeMap<K, V> implements Map<K, V>
 		rotateLeft(b);
 	}
 
-	private int height(Node<K, V> node)
+	/**
+	 * Returns the height of the subtree rooted by the provided node. A single node is 1 high.
+	 *
+	 * @param root The root of the subtree to find the height of.
+	 *
+	 * @return The height of the subtree rooted by the provided node.
+	 */
+	private int height(Node<K, V> root)
 	{
-		if (node == null)
+		if (root == null)
 			return 0;
 
-		return node.height;
+		return root.height;
 	}
 
+	/**
+	 * Returns the balance factor of the provided node. The balancing factor is the <code>Height(RightSubtree(N)) –
+	 * Height(LeftSubtree(N))</code> of the provided node <code>n</code>. The provided node is unbalanced when
+	 * <code>balanceFactor(node) > 1 || balanceFactor(node) < 1</code>.
+	 *
+	 * @param node The node to calculate of balance factor of.
+	 *
+	 * @return The balance factor of the provided node.
+	 * @see <a href="https://en.wikipedia.org/wiki/AVL_tree#Balance_factor">Balance factor</a>
+	 */
 	private int balanceFactor(Node<K, V> node)
 	{
 		if (node == null)
